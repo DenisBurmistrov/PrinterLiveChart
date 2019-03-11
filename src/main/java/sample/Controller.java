@@ -27,12 +27,39 @@ public class Controller {
     public NumberAxis yAxis;
 
     @FXML
+    public Button buttonTempDosat;
+
+    @FXML
+    public Button buttonAirFlowBuild;
+
+    @FXML
+    public Button buttonAirFlowOptics;
+
+    @FXML
+    public Button buttonPressureInFilter;
+
+    @FXML
+    public Button buttonPressureInCamera;
+
+    @FXML
+    public Button buttonTempOfCamera;
+
+    @FXML
+    public Button buttonOxygen1;
+
+    @FXML
+    public Button buttonOxygen2;
+
+    @FXML
+    public Button allCharts;
+
+    @FXML
     private Button buttonQAr2;
 
     @FXML
     private Button choseLogButton;
 
-    @FXML Button someButton;
+    @FXML Button buttonTempTable;
 
     public XYChart.Series<Number, Number> lineOnChart = new XYChart.Series<>();
 
@@ -46,30 +73,23 @@ public class Controller {
         liveChart.getData().add(lineOnChart);
 
         choseLogButton.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(final ActionEvent e) {
-
-                        logChooser.configureFileChooser(logChooser.getFileChooser());
-                        File file = logChooser.getFileChooser().showOpenDialog(vBox.getScene().getWindow());
-                        if (file != null) {
-                            classPath = file.getPath();
-
-                        }
+                e -> {
+                    logChooser.configureFileChooser(logChooser.getFileChooser());
+                    File file = logChooser.getFileChooser().showOpenDialog(vBox.getScene().getWindow());
+                    if (file != null) {
+                        classPath = file.getPath();
 
                     }
+
                 });
-        buttonQAr2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                lineOnChart.getData().clear();
-                SearchString.listOfFoundedStrings.clear();
-                lineOnChart.setName("P");
-                logChooser.openFile(new File(classPath), lineOnChart,"QAr2", "QAr2");
-            }
+        buttonQAr2.setOnAction(event -> {
+            lineOnChart.getData().clear();
+            SearchString.listOfFoundedStrings.clear();
+            lineOnChart.setName("P");
+            logChooser.openFile(new File(classPath), lineOnChart,"QAr2", "QAr2");
         });
 
-        someButton.setOnAction(new EventHandler<ActionEvent>() {
+        buttonTempTable.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
             }
