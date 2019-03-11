@@ -24,3 +24,4 @@ public class EntityOfLists {
         this.listOfDifferenceBetweenTime = listOfDifferenceBetweenTime;
     }
 }
+

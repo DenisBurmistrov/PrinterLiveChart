@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.chart.XYChart;
 import javafx.stage.FileChooser;
 import sample.Chart.ChartService;
 import sample.SearchString.EntityOfLists;
@@ -28,16 +29,15 @@ public class LogChooser {
         );
     }
 
-    public void openFile(File file) {
+    public void openFile(File file, XYChart.Series<Number, Number> lineOnChart, String variableToPattern, String variableToY) {
 
         classPath = file.getPath();
-        EntityOfLists entityOfLists = searchString.readString("P", "P", null);
-        chartService.addInfo(Controller.lineOnChart,
-                entityOfLists.getListOfDifferenceBetweenTime(), entityOfLists.getListOfVariables());
+        searchString.readString(variableToPattern, variableToY, lineOnChart);
+
         TimerTask task = new FileWatcher(new File(classPath)) {
             protected void onChange(File file) {
                 // Выполнение при изменении файла
-
+                searchString.readString(variableToPattern, variableToY, lineOnChart);
 
 
                 System.out.println("File " + file.getName() + " have change !");
