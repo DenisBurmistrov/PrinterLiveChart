@@ -40,7 +40,7 @@ public class SearchString {
                     if(i == 0) {
                         firstDate = simpleDateFormat.parse
                                 (strRead.replaceFirst("(\\d+)-(\\d+)-(\\d+) (\\d+):(\\d+):(\\d+).+", "$1-$2-$3 $4:$5:$6"));
-                        Double firstVariableOfY = Double.parseDouble(strRead.replaceFirst(".*?" + variableToY + " = (.+)", "$1"));
+                        Double firstVariableOfY = Double.parseDouble(strRead.replaceFirst(".*?" + variableToY + "=(.+)", "$1"));
                         chartService.addInfo(lineOnChart, 0D, firstVariableOfY);
                         i++;
                         continue;
@@ -48,7 +48,7 @@ public class SearchString {
 
                     listOfFoundedStrings.add(strRead);
 
-                    Double yVariable = Double.parseDouble(strRead.replaceFirst(".*?" + variableToY + " = (.+)", "$1"));
+                    Double yVariable = Double.parseDouble(strRead.replaceFirst(".*?" + variableToY + "=(.+)", "$1"));
                     Date time = simpleDateFormat.parse
                             (strRead.replaceFirst("(\\d+)-(\\d+)-(\\d+) (\\d+):(\\d+):(\\d+).+", "$1-$2-$3 $4:$5:$6"));
                    Double xVariable = (double)(time.getTime() - firstDate.getTime())/60000;
@@ -65,8 +65,10 @@ public class SearchString {
     }
 
     public static void initPatterns() {
-        Pattern patternQAr2 = Pattern.compile("QAr2 = .+");
+        Pattern patternQAr2 = Pattern.compile("QAr2=.+");
+        Pattern patternTtable = Pattern.compile("Tстола=.+");
         mapOfPatterns.put("QAr2", patternQAr2);
+
 
     }
 
