@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class SearchString {
 
     /** Массив для внутреннего кеширование строк */
-    private List<String> listOfFoundedStrings = new ArrayList<>();
+    public static List<String> listOfFoundedStrings = new ArrayList<>();
     private List<Double> listOfVariables = new ArrayList<>();
     private List<Date> listOfTime = new ArrayList<>();
     private List<Double> listOfDifferenceBetweenTime = new ArrayList<>();

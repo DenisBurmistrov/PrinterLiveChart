@@ -10,6 +10,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import sample.SearchString.SearchString;
 
 public class Controller {
 
@@ -62,6 +63,7 @@ public class Controller {
             @Override
             public void handle(ActionEvent event) {
                 lineOnChart.getData().clear();
+                SearchString.listOfFoundedStrings.clear();
                 lineOnChart.setName("P");
 
                 logChooser.openFile(new File(classPath), lineOnChart);
