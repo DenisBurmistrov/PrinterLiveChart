@@ -65,11 +65,9 @@ public class SearchString {
                    Double xVariable = (double)(time.getTime() - firstDate.getTime())/60000;
                    chartService.addInfo(lineOnChart, xVariable, yVariable);
 
-
                     //System.out.println("Нашли " + strRead);
                 }
             }
-            doDifferentBetweenTime(searchString.getListOfTime(), searchString);
             br.close();
         }
         catch (Exception e) {
@@ -77,15 +75,6 @@ public class SearchString {
             System.err.println("Error file");
 
         }
-    }
-
-    private void doDifferentBetweenTime(List<Date> dates, SearchString searchString) {
-
-        for (int i = 1; i < dates.size(); i++) {
-            Double difference = (double) (dates.get(i).getTime() - dates.get(0).getTime())/60000;
-            searchString.getListOfDifferenceBetweenTime().add(difference);
-        }
-        System.out.println(searchString.getListOfDifferenceBetweenTime());
     }
 
     public static void initPatterns() {

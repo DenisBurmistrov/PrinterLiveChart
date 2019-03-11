@@ -42,6 +42,8 @@ public class Controller {
     @FXML
     void initialize() {
 
+        liveChart.getData().add(lineOnChart);
+
         choseLogButton.setOnAction(
                 new EventHandler<ActionEvent>() {
                     @Override
@@ -59,8 +61,9 @@ public class Controller {
         buttonP.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                lineOnChart.getData().clear();
                 lineOnChart.setName("P");
-                liveChart.getData().add(lineOnChart);
+
                 logChooser.openFile(new File(classPath), lineOnChart);
                 /*lineOnChart.getData().add(new XYChart.Data<>(1, 20));
                 lineOnChart.getData().add(new XYChart.Data<>(2, 100));
