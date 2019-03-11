@@ -11,8 +11,8 @@
 <VBox fx:id="vBox" prefHeight="706.0" prefWidth="1023.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <SplitPane dividerPositions="0.2" prefHeight="710.0" prefWidth="1025.0">
         <AnchorPane>
-            <Button fx:id="buttonP" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="24.0"
-                    prefWidth="157.0" text="P"/>
+            <Button fx:id="buttonQAr2" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="24.0"
+                    prefWidth="157.0" text="Расход Аргона л/мин"/>
             <Button fx:id="someButton" layoutX="14.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0"
                     prefWidth="157.0" text="Button"/>
             <Button fx:id="choseLogButton" layoutX="7.0" layoutY="625.0" mnemonicParsing="false"

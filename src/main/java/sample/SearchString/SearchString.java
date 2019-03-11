@@ -17,17 +17,8 @@ public class SearchString {
 
     /** Массив для внутреннего кеширование строк */
     public static List<String> listOfFoundedStrings = new ArrayList<>();
-    private List<Double> listOfVariables = new ArrayList<>();
-    private List<Date> listOfTime = new ArrayList<>();
-    private List<Double> listOfDifferenceBetweenTime = new ArrayList<>();
-
-
-    public SearchString() {
-        listOfDifferenceBetweenTime.add(0d);
-    }
 
     public static Map<String, Pattern> mapOfPatterns = new LinkedHashMap<>();
-
 
     /** Чтение строки из файла */
     public void readString(String variableToPattern, String variableToY, XYChart.Series<Number, Number> lineOnChart) {
@@ -49,23 +40,19 @@ public class SearchString {
                     if(i == 0) {
                         firstDate = simpleDateFormat.parse
                                 (strRead.replaceFirst("(\\d+)-(\\d+)-(\\d+) (\\d+):(\\d+):(\\d+).+", "$1-$2-$3 $4:$5:$6"));
-                        Double firstVariableOfY = Double.parseDouble(strRead.replaceFirst(".*?" + variableToY + " = (\\d+)", "$1"));
+                        Double firstVariableOfY = Double.parseDouble(strRead.replaceFirst(".*?" + variableToY + " = (.+)", "$1"));
                         chartService.addInfo(lineOnChart, 0D, firstVariableOfY);
                         i++;
                         continue;
                     }
 
-                    searchString.getListOfFoundedStrings().add(strRead);
+                    listOfFoundedStrings.add(strRead);
 
-                    Double yVariable = Double.parseDouble(strRead.replaceFirst(".*?" + variableToY + " = (\\d+)", "$1"));
+                    Double yVariable = Double.parseDouble(strRead.replaceFirst(".*?" + variableToY + " = (.+)", "$1"));
                     Date time = simpleDateFormat.parse
                             (strRead.replaceFirst("(\\d+)-(\\d+)-(\\d+) (\\d+):(\\d+):(\\d+).+", "$1-$2-$3 $4:$5:$6"));
-                   /* searchString.getListOfVariables().add(variableY);
-                    searchString.getListOfTime().add(time);*/
                    Double xVariable = (double)(time.getTime() - firstDate.getTime())/60000;
                    chartService.addInfo(lineOnChart, xVariable, yVariable);
-
-                    //System.out.println("Нашли " + strRead);
                 }
             }
             br.close();
@@ -78,8 +65,8 @@ public class SearchString {
     }
 
     public static void initPatterns() {
-        Pattern patternP = Pattern.compile("P = \\d+");
-        mapOfPatterns.put("P", patternP);
+        Pattern patternQAr2 = Pattern.compile("QAr2 = .+");
+        mapOfPatterns.put("QAr2", patternQAr2);
 
     }
 
@@ -89,21 +76,5 @@ public class SearchString {
                 return true;
         }
         return false;
-    }
-
-    public List<String> getListOfFoundedStrings() {
-        return listOfFoundedStrings;
-    }
-
-    public List<Double> getListOfVariables() {
-        return listOfVariables;
-    }
-
-    public List<Date> getListOfTime() {
-        return listOfTime;
-    }
-
-    public List<Double> getListOfDifferenceBetweenTime() {
-        return listOfDifferenceBetweenTime;
     }
 }

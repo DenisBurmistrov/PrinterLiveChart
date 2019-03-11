@@ -29,14 +29,14 @@ public class LogChooser {
         );
     }
 
-    public void openFile(File file, XYChart.Series<Number, Number> lineOnChart) {
+    public void openFile(File file, XYChart.Series<Number, Number> lineOnChart, String variableToPattern, String variableToY) {
 
         classPath = file.getPath();
-        searchString.readString("P", "P", lineOnChart);
+        searchString.readString(variableToPattern, variableToY, lineOnChart);
         TimerTask task = new FileWatcher(new File(classPath)) {
             protected void onChange(File file) {
                 // Выполнение при изменении файла
-                searchString.readString("P", "P", lineOnChart);
+                searchString.readString(variableToPattern, variableToY, lineOnChart);
 
 
                 System.out.println("File " + file.getName() + " have change !");

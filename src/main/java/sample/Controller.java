@@ -27,7 +27,7 @@ public class Controller {
     public NumberAxis yAxis;
 
     @FXML
-    private Button buttonP;
+    private Button buttonQAr2;
 
     @FXML
     private Button choseLogButton;
@@ -38,7 +38,7 @@ public class Controller {
 
     public static String classPath;
 
-    LogChooser logChooser = new LogChooser();
+    private LogChooser logChooser = new LogChooser();
 
     @FXML
     void initialize() {
@@ -59,28 +59,19 @@ public class Controller {
 
                     }
                 });
-        buttonP.setOnAction(new EventHandler<ActionEvent>() {
+        buttonQAr2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 lineOnChart.getData().clear();
                 SearchString.listOfFoundedStrings.clear();
                 lineOnChart.setName("P");
-
-                logChooser.openFile(new File(classPath), lineOnChart);
-                /*lineOnChart.getData().add(new XYChart.Data<>(1, 20));
-                lineOnChart.getData().add(new XYChart.Data<>(2, 100));
-                lineOnChart.getData().add(new XYChart.Data<>(3, 80));
-                lineOnChart.getData().add(new XYChart.Data<>(4, 180));
-                lineOnChart.getData().add(new XYChart.Data<>(5, 20));
-                lineOnChart.getData().add(new XYChart.Data<>(6, -10));*/
-                //liveChart.getData().add(lineOnChart);
+                logChooser.openFile(new File(classPath), lineOnChart,"QAr2", "QAr2");
             }
         });
 
         someButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-               // lineOnChart.getData().add(new XYChart.Data<>(3, 5));
             }
         });
     }
