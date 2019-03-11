@@ -36,7 +36,7 @@ public class LogChooser {
         TimerTask task = new FileWatcher(new File(classPath)) {
             protected void onChange(File file) {
                 // Выполнение при изменении файла
-
+                searchString.readString("P", "P", lineOnChart);
 
 
                 System.out.println("File " + file.getName() + " have change !");
