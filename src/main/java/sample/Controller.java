@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -9,6 +10,9 @@ import javafx.scene.layout.VBox;
 import sample.SearchString.SearchString;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
+import java.util.HashMap;
 
 public class Controller {
 
@@ -49,9 +53,6 @@ public class Controller {
     public Button buttonOxygen2;
 
     @FXML
-    public Button allCharts;
-
-    @FXML
     private Button buttonQAr2;
 
     @FXML
@@ -60,11 +61,17 @@ public class Controller {
     @FXML
     Button buttonTempTable;
 
-    public XYChart.Series<Number, Number> lineOnChart = new XYChart.Series<>();
+    private XYChart.Series<Number, Number> lineOnChart = new XYChart.Series<>();
 
-    public static String classPath;
+    private SearchString searchString = new SearchString();
+
+    private static String classPath;
 
     private LogChooser logChooser = new LogChooser();
+
+    public HashMap<Integer, BoxInfoForButton> mapOfBoxes = new HashMap<>();
+
+    public static Integer counter = 0;
 
     @FXML
     void initialize() {
@@ -77,10 +84,8 @@ public class Controller {
 
         buttonTempTable.setOnAction(event -> {
             try {
-                lineOnChart.getData().clear();
-                SearchString.listOfFoundedStrings.clear();
-                lineOnChart.setName("Tстола");
-                logChooser.openFile(new File(classPath), lineOnChart, "Tстола", "Tстола");
+                counter = 1;
+                updateChart();
             } catch (NullPointerException e) {
                 callFileChooser();
             }
@@ -88,10 +93,8 @@ public class Controller {
 
         buttonTempDosat.setOnAction(event -> {
             try {
-                lineOnChart.getData().clear();
-                SearchString.listOfFoundedStrings.clear();
-                lineOnChart.setName("Tдозатора");
-                logChooser.openFile(new File(classPath), lineOnChart, "Tдозатора", "Tдозатора");
+                counter = 2;
+                updateChart();
             } catch (NullPointerException e) {
                 callFileChooser();
             }
@@ -99,10 +102,8 @@ public class Controller {
 
         buttonAirFlowBuild.setOnAction(event -> {
             try {
-                lineOnChart.getData().clear();
-                SearchString.listOfFoundedStrings.clear();
-                lineOnChart.setName("Qниз");
-                logChooser.openFile(new File(classPath), lineOnChart, "Qниз", "Qниз");
+                counter = 3;
+                updateChart();
             } catch (NullPointerException e) {
                 callFileChooser();
             }
@@ -110,10 +111,8 @@ public class Controller {
 
         buttonAirFlowOptics.setOnAction(event -> {
             try {
-                lineOnChart.getData().clear();
-                SearchString.listOfFoundedStrings.clear();
-                lineOnChart.setName("Qверх");
-                logChooser.openFile(new File(classPath), lineOnChart, "Qверх", "Qверх");
+                counter = 4;
+                updateChart();
             } catch (NullPointerException e) {
                 callFileChooser();
             }
@@ -121,10 +120,8 @@ public class Controller {
 
         buttonPressureInFilter.setOnAction(event -> {
             try {
-                lineOnChart.getData().clear();
-                SearchString.listOfFoundedStrings.clear();
-                lineOnChart.setName("Pфильтра");
-                logChooser.openFile(new File(classPath), lineOnChart, "Pфильтра", "Pфильтра");
+                counter = 5;
+                updateChart();
             } catch (NullPointerException e) {
                 callFileChooser();
             }
@@ -132,10 +129,8 @@ public class Controller {
 
         buttonPressureInCamera.setOnAction(event -> {
             try {
-                lineOnChart.getData().clear();
-                SearchString.listOfFoundedStrings.clear();
-                lineOnChart.setName("Pкам");
-                logChooser.openFile(new File(classPath), lineOnChart, "Pкам", "Pкам");
+                counter = 6;
+                updateChart();
             } catch (NullPointerException e) {
                 callFileChooser();
             }
@@ -143,10 +138,8 @@ public class Controller {
 
         buttonTempOfCamera.setOnAction(event -> {
             try {
-                lineOnChart.getData().clear();
-                SearchString.listOfFoundedStrings.clear();
-                lineOnChart.setName("Tкам");
-                logChooser.openFile(new File(classPath), lineOnChart, "Tкам", "Tкам");
+                counter = 7;
+                updateChart();
             } catch (NullPointerException e) {
                 callFileChooser();
             }
@@ -154,10 +147,8 @@ public class Controller {
 
         buttonOxygen1.setOnAction(event -> {
             try {
-                lineOnChart.getData().clear();
-                SearchString.listOfFoundedStrings.clear();
-                lineOnChart.setName("O21");
-                logChooser.openFile(new File(classPath), lineOnChart, "O21", "O21");
+                counter = 8;
+                updateChart();
             } catch (NullPointerException e) {
                 callFileChooser();
             }
@@ -165,10 +156,8 @@ public class Controller {
 
         buttonOxygen2.setOnAction(event -> {
             try {
-                lineOnChart.getData().clear();
-                SearchString.listOfFoundedStrings.clear();
-                lineOnChart.setName("O22");
-                logChooser.openFile(new File(classPath), lineOnChart, "O22", "O22");
+                counter = 9;
+                updateChart();
             } catch (NullPointerException e) {
                 callFileChooser();
             }
@@ -176,11 +165,8 @@ public class Controller {
 
         buttonQAr2.setOnAction(event -> {
             try {
-
-                lineOnChart.getData().clear();
-                SearchString.listOfFoundedStrings.clear();
-                lineOnChart.setName("QAr2");
-                logChooser.openFile(new File(classPath), lineOnChart, "QAr2", "QAr2");
+                counter = 10;
+                updateChart();
             } catch (NullPointerException e) {
                 callFileChooser();
             }
@@ -188,14 +174,82 @@ public class Controller {
         });
     }
 
+    private void updateChart() {
+        lineOnChart.getData().clear();
+        SearchString.listOfFoundedStrings.clear();
+        BoxInfoForButton boxInfoForButton = mapOfBoxes.get(counter);
+        lineOnChart.setName(boxInfoForButton.getVariableToPattern());
+        logChooser.openFile(boxInfoForButton.getFile(), boxInfoForButton.getLineOnChart(), boxInfoForButton.getVariableToPattern(), boxInfoForButton.getSearchString());
+    }
+
     private void callFileChooser() {
         logChooser.configureFileChooser(logChooser.getFileChooser());
         File file = logChooser.getFileChooser().showOpenDialog(vBox.getScene().getWindow());
         if (file != null) {
             classPath = file.getPath();
+            System.out.println(classPath);
+            initBoxes(file);
+
+            Thread thread = new Thread(() -> {
+                System.out.println("from thread");
+
+                final Path path = Paths.get(file.getParent());
+                System.out.println(path);
+                try (final WatchService watchService = FileSystems.getDefault().newWatchService()) {
+                    final WatchKey watchKey = path.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
+                    int i = 0;
+                    while (true) {
+                        final WatchKey wk = watchService.take();
+                        for (WatchEvent<?> event : wk.pollEvents()) {
+                            //we only register "ENTRY_MODIFY" so the context is always a Path.
+                            final Path changed = (Path) event.context();
+                            if (changed.endsWith(file.getName())) {
+                                Platform.runLater(this::updateChart);
+                                System.out.println("file has changed");
+                            }
+                        }
+                        // reset the key
+                        boolean valid = wk.reset();
+                        if (!valid) {
+                            System.out.println("Key has been unregisterede");
+                        }
+                    }
+                } catch (InterruptedException | IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            thread.start();
 
         }
     }
+
+    private void initBoxes(File file) {
+        BoxInfoForButton boxInfoForButtonTtable = new BoxInfoForButton(file, lineOnChart, "Tстола", searchString);
+        BoxInfoForButton boxInfoForButtonTdosator = new BoxInfoForButton(file, lineOnChart, "Tдозатора", searchString);
+        BoxInfoForButton boxInfoForButtonQdown = new BoxInfoForButton(file, lineOnChart, "Qниз", searchString);
+        BoxInfoForButton boxInfoForButtonQup = new BoxInfoForButton(file, lineOnChart, "Qверх", searchString);
+        BoxInfoForButton boxInfoForButtonPfilter = new BoxInfoForButton(file, lineOnChart, "Pфильтра", searchString);
+        BoxInfoForButton boxInfoForButtonPcam = new BoxInfoForButton(file, lineOnChart, "Pкам", searchString);
+        BoxInfoForButton boxInfoForButtonTcam = new BoxInfoForButton(file, lineOnChart, "Tкам", searchString);
+        BoxInfoForButton boxInfoForButtonQ21 = new BoxInfoForButton(file, lineOnChart, "O21", searchString);
+        BoxInfoForButton boxInfoForButtonQ22 = new BoxInfoForButton(file, lineOnChart, "O22", searchString);
+        BoxInfoForButton boxInfoForButtonQar = new BoxInfoForButton(file, lineOnChart, "QAr2", searchString);
+
+        mapOfBoxes.put(1, boxInfoForButtonTtable);
+        mapOfBoxes.put(2, boxInfoForButtonTdosator);
+        mapOfBoxes.put(3, boxInfoForButtonQdown);
+        mapOfBoxes.put(4, boxInfoForButtonQup);
+        mapOfBoxes.put(5, boxInfoForButtonPfilter);
+        mapOfBoxes.put(6, boxInfoForButtonPcam);
+        mapOfBoxes.put(7, boxInfoForButtonTcam);
+        mapOfBoxes.put(8, boxInfoForButtonQ21);
+        mapOfBoxes.put(9, boxInfoForButtonQ22);
+        mapOfBoxes.put(10, boxInfoForButtonQar);
+
+
+
+    }
+
 }
 
 
