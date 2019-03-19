@@ -1,4 +1,4 @@
-package sample.service;
+package sample.entity;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package sample.SearchString;
+package sample.service;
 
 import javafx.scene.chart.XYChart;
 import sample.chart.ChartService;
@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SearchString {
+public class ChartFillService {
 
     /** Массив для внутреннего кеширование строк */
     public static List<String> listOfFoundedStrings = new ArrayList<>();

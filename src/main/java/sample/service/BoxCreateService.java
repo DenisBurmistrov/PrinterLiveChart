@@ -1,8 +1,6 @@
 package sample.service;
 
-import sample.LogChooser;
-import sample.SearchString.SearchString;
-import sun.rmi.runtime.Log;
+import sample.entity.BoxOfVariablesList;
 
 import java.io.*;
 import java.text.ParseException;
@@ -14,54 +12,54 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class BoxCreate {
+public class BoxCreateService {
 
     private List<String> listOfFoundedStrings = new ArrayList<>();
     private List<Double> listOfVariables = new ArrayList<>();
     private List<Date> listOfTime = new ArrayList<>();
     private List<Double> listOfDifferenceBetweenTime = new ArrayList<>();
 
-    public static Map<String, Pattern> mapOfPatterns = SearchString.mapOfPatterns;
+    public static Map<String, Pattern> mapOfPatterns = ChartFillService.mapOfPatterns;
 
-    public BoxCreate() {
+    public BoxCreateService() {
         listOfDifferenceBetweenTime.add(0d);
     }
 
     public BoxOfVariablesList fillBox(String variableToPattern, String pathRead) throws IOException, ParseException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(new
-                FileInputStream(LogChooser.classPath)));
+                FileInputStream(pathRead)));
 
         String strRead = null;
         Pattern pattern = mapOfPatterns.get(variableToPattern);
 
         BoxOfVariablesList boxOfVariablesList = new BoxOfVariablesList();
-        BoxCreate boxCreate = new BoxCreate();
+        BoxCreateService boxCreateService = new BoxCreateService();
 
         while ((strRead = br.readLine()) != null) {
             Matcher matcher = pattern.matcher(strRead);
             if (matcher.find() && !existString(strRead)) {
-                boxCreate.getListOfFoundedStrings().add(strRead);
+                boxCreateService.getListOfFoundedStrings().add(strRead);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Double variableY = Double.parseDouble(strRead.replaceFirst(".*?" + variableToPattern + " = (\\d+)", "$1"));
+                Double variableY = Double.parseDouble(strRead.replaceFirst(".*?" + variableToPattern + "=(.+)", "$1"));
                 Date time = simpleDateFormat.parse
                         (strRead.replaceFirst("(\\d+)-(\\d+)-(\\d+) (\\d+):(\\d+):(\\d+).+", "$1-$2-$3 $4:$5:$6"));
-                boxCreate.getListOfVariables().add(variableY);
-                boxCreate.getListOfTime().add(time);
+                boxCreateService.getListOfVariables().add(variableY);
+                boxCreateService.getListOfTime().add(time);
             }
         }
-        doDifferentBetweenTime(boxCreate.getListOfTime(), boxCreate);
-        boxOfVariablesList.setVariable(boxCreate.getListOfVariables());
-        boxOfVariablesList.setTime(boxCreate.getListOfDifferenceBetweenTime());
+        doDifferentBetweenTime(boxCreateService.getListOfTime(), boxCreateService);
+        boxOfVariablesList.setVariable(boxCreateService.getListOfVariables());
+        boxOfVariablesList.setTime(boxCreateService.getListOfDifferenceBetweenTime());
         br.close();
         return boxOfVariablesList;
     }
 
-    private void doDifferentBetweenTime(List<Date> dates, BoxCreate boxCreate) {
+    private void doDifferentBetweenTime(List<Date> dates, BoxCreateService boxCreateService) {
 
         for (int i = 1; i < dates.size(); i++) {
             Double difference = (double) (dates.get(i).getTime() - dates.get(0).getTime())/60000;
-            boxCreate.getListOfDifferenceBetweenTime().add(difference);
+            boxCreateService.getListOfDifferenceBetweenTime().add(difference);
         }
     }
 

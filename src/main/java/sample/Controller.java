@@ -8,7 +8,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
-import sample.SearchString.SearchString;
+import sample.service.ChartFillService;
+import sample.entity.BoxInfoForButton;
 import sample.service.ExcelService;
 
 import java.io.File;
@@ -68,7 +69,7 @@ public class Controller {
 
     private XYChart.Series<Number, Number> lineOnChart = new XYChart.Series<>();
 
-    private SearchString searchString = new SearchString();
+    private ChartFillService chartFillService = new ChartFillService();
 
     private static String classPath;
 
@@ -182,13 +183,14 @@ public class Controller {
             try {
                 String pathOut;
                 DirectoryChooser directoryChooser = new DirectoryChooser();
+                directoryChooser.setTitle("Выбор папки для сохранения лога");
                 File selectedDirectory = directoryChooser.showDialog(vBox.getScene().getWindow());
 
                 if(selectedDirectory != null){
                     pathOut = selectedDirectory.getPath();
                     System.out.println(pathOut);
                     ExcelService excelService = new ExcelService();
-                    excelService.fillTable(SearchString.mapOfPatterns, pathOut);
+                    excelService.fillTable(ChartFillService.mapOfPatterns, pathOut, classPath);
                 }
 
             } catch (NullPointerException e) {
@@ -200,10 +202,10 @@ public class Controller {
 
     private void updateChart() {
         lineOnChart.getData().clear();
-        SearchString.listOfFoundedStrings.clear();
+        ChartFillService.listOfFoundedStrings.clear();
         BoxInfoForButton boxInfoForButton = mapOfBoxes.get(counter);
         lineOnChart.setName(boxInfoForButton.getVariableToPattern());
-        logChooser.openFile(boxInfoForButton.getFile(), boxInfoForButton.getLineOnChart(), boxInfoForButton.getVariableToPattern(), boxInfoForButton.getSearchString());
+        logChooser.openFile(boxInfoForButton.getFile(), boxInfoForButton.getLineOnChart(), boxInfoForButton.getVariableToPattern(), boxInfoForButton.getChartFillService());
     }
 
     private void callFileChooser() {
@@ -244,16 +246,16 @@ public class Controller {
     }
 
     private void initBoxes(File file) {
-        BoxInfoForButton boxInfoForButtonTtable = new BoxInfoForButton(file, lineOnChart, "Tстола", searchString);
-        BoxInfoForButton boxInfoForButtonTdosator = new BoxInfoForButton(file, lineOnChart, "Tдозатора", searchString);
-        BoxInfoForButton boxInfoForButtonQdown = new BoxInfoForButton(file, lineOnChart, "Qниз", searchString);
-        BoxInfoForButton boxInfoForButtonQup = new BoxInfoForButton(file, lineOnChart, "Qверх", searchString);
-        BoxInfoForButton boxInfoForButtonPfilter = new BoxInfoForButton(file, lineOnChart, "Pфильтра", searchString);
-        BoxInfoForButton boxInfoForButtonPcam = new BoxInfoForButton(file, lineOnChart, "Pкам", searchString);
-        BoxInfoForButton boxInfoForButtonTcam = new BoxInfoForButton(file, lineOnChart, "Tкам", searchString);
-        BoxInfoForButton boxInfoForButtonQ21 = new BoxInfoForButton(file, lineOnChart, "O21", searchString);
-        BoxInfoForButton boxInfoForButtonQ22 = new BoxInfoForButton(file, lineOnChart, "O22", searchString);
-        BoxInfoForButton boxInfoForButtonQar = new BoxInfoForButton(file, lineOnChart, "QAr2", searchString);
+        BoxInfoForButton boxInfoForButtonTtable = new BoxInfoForButton(file, lineOnChart, "Tстола", chartFillService);
+        BoxInfoForButton boxInfoForButtonTdosator = new BoxInfoForButton(file, lineOnChart, "Tдозатора", chartFillService);
+        BoxInfoForButton boxInfoForButtonQdown = new BoxInfoForButton(file, lineOnChart, "Qниз", chartFillService);
+        BoxInfoForButton boxInfoForButtonQup = new BoxInfoForButton(file, lineOnChart, "Qверх", chartFillService);
+        BoxInfoForButton boxInfoForButtonPfilter = new BoxInfoForButton(file, lineOnChart, "Pфильтра", chartFillService);
+        BoxInfoForButton boxInfoForButtonPcam = new BoxInfoForButton(file, lineOnChart, "Pкам", chartFillService);
+        BoxInfoForButton boxInfoForButtonTcam = new BoxInfoForButton(file, lineOnChart, "Tкам", chartFillService);
+        BoxInfoForButton boxInfoForButtonQ21 = new BoxInfoForButton(file, lineOnChart, "O21", chartFillService);
+        BoxInfoForButton boxInfoForButtonQ22 = new BoxInfoForButton(file, lineOnChart, "O22", chartFillService);
+        BoxInfoForButton boxInfoForButtonQar = new BoxInfoForButton(file, lineOnChart, "QAr2", chartFillService);
 
         mapOfBoxes.put(1, boxInfoForButtonTtable);
         mapOfBoxes.put(2, boxInfoForButtonTdosator);

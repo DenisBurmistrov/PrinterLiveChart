@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import sample.SearchString.SearchString;
+import sample.service.ChartFillService;
 
 
 public class Main extends Application {
@@ -22,7 +22,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        SearchString.initPatterns();
+        ChartFillService.initPatterns();
         launch(args);
     }
 }
