@@ -3,6 +3,7 @@ package sample.service;
 import sample.entity.BoxOfVariablesList;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class BoxCreateService {
     public BoxOfVariablesList fillBox(String variableToPattern, String pathRead) throws IOException, ParseException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(new
-                FileInputStream(pathRead)));
+                FileInputStream(pathRead), StandardCharsets.UTF_8));
 
         String strRead = null;
         Pattern pattern = mapOfPatterns.get(variableToPattern);
@@ -37,6 +38,7 @@ public class BoxCreateService {
         BoxCreateService boxCreateService = new BoxCreateService();
 
         while ((strRead = br.readLine()) != null) {
+            System.out.println(strRead);
             Matcher matcher = pattern.matcher(strRead);
             if (matcher.find() && !existString(strRead)) {
                 boxCreateService.getListOfFoundedStrings().add(strRead);

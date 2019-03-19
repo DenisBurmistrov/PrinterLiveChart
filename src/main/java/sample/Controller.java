@@ -190,7 +190,10 @@ public class Controller {
                     pathOut = selectedDirectory.getPath();
                     System.out.println(pathOut);
                     ExcelService excelService = new ExcelService();
-                    Platform.runLater(() -> excelService.fillTable(ChartFillService.mapOfPatterns, pathOut, classPath));
+
+
+                    Thread thread = new Thread(() -> excelService.fillTable(ChartFillService.mapOfPatterns, pathOut, classPath));
+                    thread.start();
 
                 }
 
