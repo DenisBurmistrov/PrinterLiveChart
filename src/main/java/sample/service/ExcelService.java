@@ -6,6 +6,7 @@ import org.apache.poi.xssf.usermodel.*;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -13,16 +14,14 @@ import java.util.regex.Pattern;
 public class ExcelService {
 
 
-    public void fillTable(Map<String, Pattern> map) {
-
-
+    public void fillTable(Map<String, Pattern> map, String pathOut) {
         try (XSSFWorkbook wb = new XSSFWorkbook()) {
-
-
             for(Map.Entry<String, Pattern> entry : map.entrySet()) {
-
                 //Здесь будет метод возвращающий листы
-
+                BoxCreate boxCreate = new BoxCreate();
+                BoxOfVariablesList boxOfVariablesList = boxCreate.fillBox(entry.getKey());
+                List<Double> time = boxOfVariablesList.getTime();
+                List<Double> variable = boxOfVariablesList.getVariable();
                 AreaReference reference = wb.getCreationHelper().createAreaReference(
                         new CellReference(0, 0), new CellReference(time.size() + 1, 1));
                  XSSFSheet sheet = wb.createSheet(entry.getKey());
@@ -49,30 +48,13 @@ public class ExcelService {
                     cell1.setCellValue(variable.get(i));
                 }
 
-
              }
-            // Set which area the table should be placed in
-
-
-            // Create
-
-
-            // For now, create the initial style in a low-level way
-
-
-
-
-
-
-
-
-            // Save
-            try (FileOutputStream fileOut = new FileOutputStream("C:/Test/Testt.xlsx")) {
+            try (FileOutputStream fileOut = new FileOutputStream(pathOut + "Data.xlsx")) {
                 wb.write(fileOut);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }
