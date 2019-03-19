@@ -1,8 +1,7 @@
 package sample.SearchString;
 
 import javafx.scene.chart.XYChart;
-import org.joda.time.Interval;
-import sample.Chart.ChartService;
+import sample.chart.ChartService;
 import sample.LogChooser;
 
 import java.io.BufferedReader;

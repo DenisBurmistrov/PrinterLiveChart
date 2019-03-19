@@ -196,8 +196,7 @@ public class Controller {
                 final Path path = Paths.get(file.getParent());
                 System.out.println(path);
                 try (final WatchService watchService = FileSystems.getDefault().newWatchService()) {
-                    final WatchKey watchKey = path.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
-                    int i = 0;
+                    path.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
                     while (true) {
                         final WatchKey wk = watchService.take();
                         for (WatchEvent<?> event : wk.pollEvents()) {
