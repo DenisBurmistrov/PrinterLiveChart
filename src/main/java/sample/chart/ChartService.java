@@ -1,4 +1,4 @@
-package sample.Chart;
+package sample.chart;
 
 import javafx.scene.chart.XYChart;
 

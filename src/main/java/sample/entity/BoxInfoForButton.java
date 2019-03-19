@@ -1,12 +1,11 @@
-package sample;
+package sample.entity;
 
 import javafx.scene.chart.XYChart;
-import sample.SearchString.SearchString;
+import sample.service.ChartFillService;
 
 import java.io.File;
 
 public class BoxInfoForButton {
-// logChooser.openFile(new File(classPath), lineOnChart, "Tстола", "Tстола", searchString);
 
     private File file;
 
@@ -14,14 +13,14 @@ public class BoxInfoForButton {
 
     private String variableToPattern;
 
-    private SearchString searchString;
+    private ChartFillService chartFillService;
 
     public BoxInfoForButton(File file, XYChart.Series<Number, Number> lineOnChart, String variableToPattern,
-                            SearchString searchString) {
+                            ChartFillService chartFillService) {
         this.file = file;
         this.lineOnChart = lineOnChart;
         this.variableToPattern = variableToPattern;
-        this.searchString = searchString;
+        this.chartFillService = chartFillService;
     }
 
     public File getFile() {
@@ -40,12 +39,12 @@ public class BoxInfoForButton {
         this.lineOnChart = lineOnChart;
     }
 
-    public SearchString getSearchString() {
-        return searchString;
+    public ChartFillService getChartFillService() {
+        return chartFillService;
     }
 
-    public void setSearchString(SearchString searchString) {
-        this.searchString = searchString;
+    public void setChartFillService(ChartFillService chartFillService) {
+        this.chartFillService = chartFillService;
     }
 
     public String getVariableToPattern() {

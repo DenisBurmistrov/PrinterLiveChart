@@ -7,7 +7,10 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import sample.SearchString.SearchString;
+import javafx.stage.DirectoryChooser;
+import sample.service.ChartFillService;
+import sample.entity.BoxInfoForButton;
+import sample.service.ExcelService;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,6 +56,9 @@ public class Controller {
     public Button buttonOxygen2;
 
     @FXML
+    public Button buttonCreateExcel;
+
+    @FXML
     private Button buttonQAr2;
 
     @FXML
@@ -63,7 +69,7 @@ public class Controller {
 
     private XYChart.Series<Number, Number> lineOnChart = new XYChart.Series<>();
 
-    private SearchString searchString = new SearchString();
+    private ChartFillService chartFillService = new ChartFillService();
 
     private static String classPath;
 
@@ -172,14 +178,38 @@ public class Controller {
             }
 
         });
+
+        buttonCreateExcel.setOnAction(event -> {
+            try {
+                String pathOut;
+                DirectoryChooser directoryChooser = new DirectoryChooser();
+                directoryChooser.setTitle("Выбор папки для сохранения лога");
+                File selectedDirectory = directoryChooser.showDialog(vBox.getScene().getWindow());
+
+                if(selectedDirectory != null){
+                    pathOut = selectedDirectory.getPath();
+                    System.out.println(pathOut);
+                    ExcelService excelService = new ExcelService();
+
+
+                    Thread thread = new Thread(() -> excelService.fillTable(ChartFillService.mapOfPatterns, pathOut, classPath));
+                    thread.start();
+
+                }
+
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                callFileChooser();
+            }
+        });
     }
 
     private void updateChart() {
         lineOnChart.getData().clear();
-        SearchString.listOfFoundedStrings.clear();
+        ChartFillService.listOfFoundedStrings.clear();
         BoxInfoForButton boxInfoForButton = mapOfBoxes.get(counter);
         lineOnChart.setName(boxInfoForButton.getVariableToPattern());
-        logChooser.openFile(boxInfoForButton.getFile(), boxInfoForButton.getLineOnChart(), boxInfoForButton.getVariableToPattern(), boxInfoForButton.getSearchString());
+        logChooser.openFile(boxInfoForButton.getFile(), boxInfoForButton.getLineOnChart(), boxInfoForButton.getVariableToPattern(), boxInfoForButton.getChartFillService());
     }
 
     private void callFileChooser() {
@@ -187,17 +217,13 @@ public class Controller {
         File file = logChooser.getFileChooser().showOpenDialog(vBox.getScene().getWindow());
         if (file != null) {
             classPath = file.getPath();
-            System.out.println(classPath);
             initBoxes(file);
 
             Thread thread = new Thread(() -> {
-                System.out.println("from thread");
-
                 final Path path = Paths.get(file.getParent());
                 System.out.println(path);
                 try (final WatchService watchService = FileSystems.getDefault().newWatchService()) {
-                    final WatchKey watchKey = path.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
-                    int i = 0;
+                    path.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
                     while (true) {
                         final WatchKey wk = watchService.take();
                         for (WatchEvent<?> event : wk.pollEvents()) {
@@ -224,16 +250,16 @@ public class Controller {
     }
 
     private void initBoxes(File file) {
-        BoxInfoForButton boxInfoForButtonTtable = new BoxInfoForButton(file, lineOnChart, "Tстола", searchString);
-        BoxInfoForButton boxInfoForButtonTdosator = new BoxInfoForButton(file, lineOnChart, "Tдозатора", searchString);
-        BoxInfoForButton boxInfoForButtonQdown = new BoxInfoForButton(file, lineOnChart, "Qниз", searchString);
-        BoxInfoForButton boxInfoForButtonQup = new BoxInfoForButton(file, lineOnChart, "Qверх", searchString);
-        BoxInfoForButton boxInfoForButtonPfilter = new BoxInfoForButton(file, lineOnChart, "Pфильтра", searchString);
-        BoxInfoForButton boxInfoForButtonPcam = new BoxInfoForButton(file, lineOnChart, "Pкам", searchString);
-        BoxInfoForButton boxInfoForButtonTcam = new BoxInfoForButton(file, lineOnChart, "Tкам", searchString);
-        BoxInfoForButton boxInfoForButtonQ21 = new BoxInfoForButton(file, lineOnChart, "O21", searchString);
-        BoxInfoForButton boxInfoForButtonQ22 = new BoxInfoForButton(file, lineOnChart, "O22", searchString);
-        BoxInfoForButton boxInfoForButtonQar = new BoxInfoForButton(file, lineOnChart, "QAr2", searchString);
+        BoxInfoForButton boxInfoForButtonTtable = new BoxInfoForButton(file, lineOnChart, "Tстола", chartFillService);
+        BoxInfoForButton boxInfoForButtonTdosator = new BoxInfoForButton(file, lineOnChart, "Tдозатора", chartFillService);
+        BoxInfoForButton boxInfoForButtonQdown = new BoxInfoForButton(file, lineOnChart, "Qниз", chartFillService);
+        BoxInfoForButton boxInfoForButtonQup = new BoxInfoForButton(file, lineOnChart, "Qверх", chartFillService);
+        BoxInfoForButton boxInfoForButtonPfilter = new BoxInfoForButton(file, lineOnChart, "Pфильтра", chartFillService);
+        BoxInfoForButton boxInfoForButtonPcam = new BoxInfoForButton(file, lineOnChart, "Pкам", chartFillService);
+        BoxInfoForButton boxInfoForButtonTcam = new BoxInfoForButton(file, lineOnChart, "Tкам", chartFillService);
+        BoxInfoForButton boxInfoForButtonQ21 = new BoxInfoForButton(file, lineOnChart, "O21", chartFillService);
+        BoxInfoForButton boxInfoForButtonQ22 = new BoxInfoForButton(file, lineOnChart, "O22", chartFillService);
+        BoxInfoForButton boxInfoForButtonQar = new BoxInfoForButton(file, lineOnChart, "QAr2", chartFillService);
 
         mapOfBoxes.put(1, boxInfoForButtonTtable);
         mapOfBoxes.put(2, boxInfoForButtonTdosator);

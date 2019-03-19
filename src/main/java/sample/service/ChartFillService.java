@@ -1,8 +1,7 @@
-package sample.SearchString;
+package sample.service;
 
 import javafx.scene.chart.XYChart;
-import org.joda.time.Interval;
-import sample.Chart.ChartService;
+import sample.chart.ChartService;
 import sample.LogChooser;
 
 import java.io.BufferedReader;
@@ -14,7 +13,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SearchString {
+public class ChartFillService {
 
     /** Массив для внутреннего кеширование строк */
     public static List<String> listOfFoundedStrings = new ArrayList<>();
