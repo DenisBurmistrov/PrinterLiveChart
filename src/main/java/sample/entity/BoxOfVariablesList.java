@@ -1,12 +1,13 @@
 package sample.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BoxOfVariablesList {
 
-    private List<Double> time;
+    private List<Double> time = new ArrayList<>();
 
-    private List<Double> variable;
+    private List<Double> variable = new ArrayList<>();
 
     public List<Double> getTime() {
         return time;

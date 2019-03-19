@@ -49,6 +49,8 @@ public class BoxCreateService {
             }
         }
         doDifferentBetweenTime(boxCreateService.getListOfTime(), boxCreateService);
+        System.out.println(boxCreateService.getListOfVariables());
+        System.out.println((boxCreateService.getListOfDifferenceBetweenTime()));
         boxOfVariablesList.setVariable(boxCreateService.getListOfVariables());
         boxOfVariablesList.setTime(boxCreateService.getListOfDifferenceBetweenTime());
         br.close();

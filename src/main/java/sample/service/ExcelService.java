@@ -23,6 +23,7 @@ public class ExcelService {
                 BoxOfVariablesList boxOfVariablesList = boxCreateService.fillBox(entry.getKey(), pathRead);
                 List<Double> time = boxOfVariablesList.getTime();
                 List<Double> variable = boxOfVariablesList.getVariable();
+                System.out.println(variable);
                 AreaReference reference = wb.getCreationHelper().createAreaReference(
                         new CellReference(0, 0), new CellReference(time.size() + 1, 1));
                  XSSFSheet sheet = wb.createSheet(entry.getKey());

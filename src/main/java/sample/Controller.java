@@ -190,7 +190,8 @@ public class Controller {
                     pathOut = selectedDirectory.getPath();
                     System.out.println(pathOut);
                     ExcelService excelService = new ExcelService();
-                    excelService.fillTable(ChartFillService.mapOfPatterns, pathOut, classPath);
+                    Platform.runLater(() -> excelService.fillTable(ChartFillService.mapOfPatterns, pathOut, classPath));
+
                 }
 
             } catch (NullPointerException e) {
