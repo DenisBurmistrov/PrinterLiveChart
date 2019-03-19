@@ -11,7 +11,7 @@
 <VBox fx:id="vBox" prefHeight="706.0" prefWidth="1023.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <SplitPane dividerPositions="0.2" prefHeight="710.0" prefWidth="1025.0">
         <AnchorPane>
-            <Button fx:id="buttonQAr2" layoutX="22.0" layoutY="405.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="157.0" text="Расход Аргона л/мин">
+            <Button fx:id="buttonQAr2" layoutX="22.0" layoutY="405.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" text="Расход Аргона л/мин">
             <font>
                <Font name="Calibri" size="14.0" />
             </font></Button>
@@ -19,7 +19,7 @@
             <font>
                <Font name="Calibri" size="14.0" />
             </font></Button>
-            <Button fx:id="choseLogButton" layoutX="7.0" layoutY="625.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="176.0" text="Выберете Log" />
+            <Button fx:id="choseLogButton" layoutX="13.0" layoutY="624.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="176.0" text="Выберете Log" />
 
          <Button fx:id="buttonTempDosat" layoutX="22.0" layoutY="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" text="Температура дозатора">
             <font>
@@ -57,6 +57,11 @@
             </font>
          </Button>
          <Button fx:id="buttonOxygen2" layoutX="22.0" layoutY="365.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" text="Кислород 2">
+            <font>
+               <Font name="Calibri" size="14.0" />
+            </font>
+         </Button>
+         <Button fx:id="buttonCreateExcel" layoutX="22.0" layoutY="445.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" text="Создать Excel">
             <font>
                <Font name="Calibri" size="14.0" />
             </font>

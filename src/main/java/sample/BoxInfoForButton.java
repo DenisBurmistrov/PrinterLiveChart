@@ -6,7 +6,6 @@ import sample.SearchString.SearchString;
 import java.io.File;
 
 public class BoxInfoForButton {
-// logChooser.openFile(new File(classPath), lineOnChart, "Tстола", "Tстола", searchString);
 
     private File file;
 

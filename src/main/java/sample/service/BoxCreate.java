@@ -2,6 +2,7 @@ package sample.service;
 
 import sample.LogChooser;
 import sample.SearchString.SearchString;
+import sun.rmi.runtime.Log;
 
 import java.io.*;
 import java.text.ParseException;
@@ -26,7 +27,7 @@ public class BoxCreate {
         listOfDifferenceBetweenTime.add(0d);
     }
 
-    public BoxOfVariablesList fillBox(String variableToPattern) throws IOException, ParseException {
+    public BoxOfVariablesList fillBox(String variableToPattern, String pathRead) throws IOException, ParseException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(new
                 FileInputStream(LogChooser.classPath)));

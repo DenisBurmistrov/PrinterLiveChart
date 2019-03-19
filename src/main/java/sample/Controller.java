@@ -7,7 +7,9 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import sample.SearchString.SearchString;
+import sample.service.ExcelService;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,6 +53,9 @@ public class Controller {
 
     @FXML
     public Button buttonOxygen2;
+
+    @FXML
+    public Button buttonCreateExcel;
 
     @FXML
     private Button buttonQAr2;
@@ -172,6 +177,25 @@ public class Controller {
             }
 
         });
+
+        buttonCreateExcel.setOnAction(event -> {
+            try {
+                String pathOut;
+                DirectoryChooser directoryChooser = new DirectoryChooser();
+                File selectedDirectory = directoryChooser.showDialog(vBox.getScene().getWindow());
+
+                if(selectedDirectory != null){
+                    pathOut = selectedDirectory.getPath();
+                    System.out.println(pathOut);
+                    ExcelService excelService = new ExcelService();
+                    excelService.fillTable(SearchString.mapOfPatterns, pathOut);
+                }
+
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                callFileChooser();
+            }
+        });
     }
 
     private void updateChart() {
@@ -187,12 +211,9 @@ public class Controller {
         File file = logChooser.getFileChooser().showOpenDialog(vBox.getScene().getWindow());
         if (file != null) {
             classPath = file.getPath();
-            System.out.println(classPath);
             initBoxes(file);
 
             Thread thread = new Thread(() -> {
-                System.out.println("from thread");
-
                 final Path path = Paths.get(file.getParent());
                 System.out.println(path);
                 try (final WatchService watchService = FileSystems.getDefault().newWatchService()) {

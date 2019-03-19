@@ -49,7 +49,7 @@ public class ExcelService {
                 }
 
              }
-            try (FileOutputStream fileOut = new FileOutputStream(pathOut + "Data.xlsx")) {
+            try (FileOutputStream fileOut = new FileOutputStream(pathOut + "/Data.xlsx")) {
                 wb.write(fileOut);
             } catch (IOException e) {
                 e.printStackTrace();
