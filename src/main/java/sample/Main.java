@@ -11,6 +11,8 @@ import sample.service.ChartFillService;
 
 public class Main extends Application {
 
+    public static Stage stage;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -18,6 +20,7 @@ public class Main extends Application {
         primaryStage.getIcons().add(new Image("/line-chart-icon.png"));
         primaryStage.setTitle("Printer Charts");
         primaryStage.setScene(new Scene(root));
+        stage = primaryStage;
         primaryStage.show();
     }
 
