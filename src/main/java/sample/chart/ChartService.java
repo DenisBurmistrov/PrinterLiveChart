@@ -13,6 +13,8 @@ public class ChartService {
         Tooltip t = new Tooltip("x: " + xVariable + "\ny: " + yVariable);
         Tooltip.install(data.getNode(), t);
 
+        lineCharts.getNode().setOnMouseClicked(event -> t.show(lineCharts.getNode(), lineCharts.getNode().getScaleX(), lineCharts.getNode().getLayoutY()));
+        lineCharts.getNode().setOnMouseExited(event -> t.hide());
 
 
     }

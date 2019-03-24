@@ -82,7 +82,6 @@ public class Controller {
 
     @FXML
     void initialize() {
-
         liveChart.getData().add(lineOnChart);
         liveChart.setAnimated(false);
 
@@ -184,7 +183,7 @@ public class Controller {
             try {
                 String pathOut;
                 DirectoryChooser directoryChooser = new DirectoryChooser();
-                directoryChooser.setTitle("Выбор папки для сохранения лога");
+                directoryChooser.setTitle("Выбор папки для сохранения экселя");
                 File selectedDirectory = directoryChooser.showDialog(vBox.getScene().getWindow());
 
                 if(selectedDirectory != null){
@@ -203,6 +202,7 @@ public class Controller {
                 callFileChooser();
             }
         });
+
     }
 
     private void updateChart() {

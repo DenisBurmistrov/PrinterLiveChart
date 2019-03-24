@@ -38,7 +38,6 @@ public class BoxCreateService {
         BoxCreateService boxCreateService = new BoxCreateService();
 
         while ((strRead = br.readLine()) != null) {
-            System.out.println(strRead);
             Matcher matcher = pattern.matcher(strRead);
             if (matcher.find() && !existString(strRead)) {
                 boxCreateService.getListOfFoundedStrings().add(strRead);
@@ -51,8 +50,6 @@ public class BoxCreateService {
             }
         }
         doDifferentBetweenTime(boxCreateService.getListOfTime(), boxCreateService);
-        System.out.println(boxCreateService.getListOfVariables());
-        System.out.println((boxCreateService.getListOfDifferenceBetweenTime()));
         boxOfVariablesList.setVariable(boxCreateService.getListOfVariables());
         boxOfVariablesList.setTime(boxCreateService.getListOfDifferenceBetweenTime());
         br.close();

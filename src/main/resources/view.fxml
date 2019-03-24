@@ -9,8 +9,8 @@
 <?import javafx.scene.text.Font?>
 
 <VBox fx:id="vBox" prefHeight="1920" prefWidth="1080" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
-    <SplitPane dividerPositions="0.2" prefHeight="759" prefWidth="201">
-        <AnchorPane>
+    <SplitPane dividerPositions="0.2" prefHeight="1921.0" prefWidth="1080.0">
+        <AnchorPane prefHeight="1040.0" prefWidth="213.0">
             <Button fx:id="buttonQAr2" layoutX="22.0" layoutY="405.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" text="Расход Аргона л/мин">
             <font>
                <Font name="Calibri" size="14.0" />
@@ -19,7 +19,7 @@
             <font>
                <Font name="Calibri" size="14.0" />
             </font></Button>
-            <Button fx:id="choseLogButton" layoutX="13.0" layoutY="624.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="176.0" text="Выберете Log" />
+            <Button fx:id="choseLogButton" layoutX="13.0" layoutY="856.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="176.0" text="Выберете Log" />
 
          <Button fx:id="buttonTempDosat" layoutX="22.0" layoutY="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" text="Температура дозатора">
             <font>
@@ -68,7 +68,7 @@
          </Button>
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1920" prefWidth="850">
-            <LineChart fx:id="liveChart" layoutX="14.0" layoutY="14.0" prefHeight="1895" prefWidth="800.0">
+            <LineChart fx:id="liveChart" layoutX="14.0" layoutY="14.0" prefHeight="1895" prefWidth="800.0" stylesheets="@sample/assets/application.css">
                 <xAxis>
                     <NumberAxis side="BOTTOM" fx:id="xAxis" />
                 </xAxis>
