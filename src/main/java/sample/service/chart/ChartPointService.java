@@ -18,6 +18,9 @@ public class ChartPointService {
 
         Tooltip t = new Tooltip("x: " + xVariable + " мин" + "\ny: " + yVariable + " " + mapOfDimensions.get(variableOfPattern));
         Tooltip.install(data.getNode(), t);
+        data.getNode().setStyle("-fx-background-radius: 4px;"
+                + "-fx-padding: 4px ;"
+                + ""); //-fx-stroke: #e9967a;
 
         data.getNode().setOnMouseClicked(event -> t.show(data.getNode(),  event.getSceneX() + Main.stage.getX(), event.getSceneY() - 50));
 

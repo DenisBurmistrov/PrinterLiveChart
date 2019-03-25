@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import java.lang.String?>
 <VBox fx:id="vBox" prefHeight="1920" prefWidth="1080" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <SplitPane dividerPositions="0.2" prefHeight="1921.0" prefWidth="1080.0">
         <AnchorPane prefHeight="1040.0" prefWidth="213.0">
