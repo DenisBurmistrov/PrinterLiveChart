@@ -39,7 +39,7 @@ public class ChartFillService {
                         firstDate = simpleDateFormat.parse
                                 (strRead.replaceFirst("(\\d+)-(\\d+)-(\\d+) (\\d+):(\\d+):(\\d+).+", "$1-$2-$3 $4:$5:$6"));
                         Double firstVariableOfY = Double.parseDouble(strRead.replaceFirst(".*?" + variableToPattern + "=(.+)", "$1"));
-                        chartPointService.addInfo(lineOnChart, (long) 0, firstVariableOfY);
+                        chartPointService.addInfo(lineOnChart, (long) 0, firstVariableOfY, variableToPattern);
                         i++;
                         continue;
                     }
@@ -50,7 +50,7 @@ public class ChartFillService {
                     Date time = simpleDateFormat.parse
                             (strRead.replaceFirst("(\\d+)-(\\d+)-(\\d+) (\\d+):(\\d+):(\\d+).+", "$1-$2-$3 $4:$5:$6"));
                     Long xVariable = (time.getTime() - firstDate.getTime())/60000;
-                    chartPointService.addInfo(lineOnChart, xVariable, yVariable);
+                    chartPointService.addInfo(lineOnChart, xVariable, yVariable, variableToPattern);
                 }
             }
             br.close();
@@ -64,7 +64,6 @@ public class ChartFillService {
 
 
     public static void initPatterns() {
-
         Pattern patternTtable = Pattern.compile("Tстола=.+");
         Pattern patternTdosat = Pattern.compile("Tдозатора=.+");
         Pattern patternQairBuil = Pattern.compile("Qниз=.+");
@@ -85,8 +84,6 @@ public class ChartFillService {
         mapOfPatterns.put("O21", patternOxygen1);
         mapOfPatterns.put("O22", patternOxygen2);
         mapOfPatterns.put("QAr2", patternQAr2);
-
-
     }
 
     private boolean existString(String foundedString) {

@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import sample.service.chart.ChartFillService;
+import sample.service.chart.ChartPointService;
 
 
 public class Main extends Application {
@@ -26,6 +27,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         ChartFillService.initPatterns();
+        ChartPointService.initDimensions();
         launch(args);
     }
 
