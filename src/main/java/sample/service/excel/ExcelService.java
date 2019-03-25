@@ -1,4 +1,4 @@
-package sample.service;
+package sample.service.excel;
 
 import org.apache.poi.ss.usermodel.charts.*;
 import org.apache.poi.ss.util.AreaReference;
@@ -24,7 +24,7 @@ public class ExcelService {
                 //Здесь будет метод возвращающий листы
                 BoxCreateService boxCreateService = new BoxCreateService();
                 BoxOfVariablesList boxOfVariablesList = boxCreateService.fillBox(entry.getKey(), pathRead);
-                List<Double> time = boxOfVariablesList.getTime();
+                List<Long> time = boxOfVariablesList.getTime();
                 List<Double> variable = boxOfVariablesList.getVariable();
                 AreaReference reference = wb.getCreationHelper().createAreaReference(
                         new CellReference(0, 0), new CellReference(time.size() + 1, 1));

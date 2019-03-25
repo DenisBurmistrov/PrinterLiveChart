@@ -1,6 +1,7 @@
-package sample.service;
+package sample.service.excel;
 
 import sample.entity.BoxOfVariablesList;
+import sample.service.chart.ChartFillService;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -18,12 +19,12 @@ public class BoxCreateService {
     private List<String> listOfFoundedStrings = new ArrayList<>();
     private List<Double> listOfVariables = new ArrayList<>();
     private List<Date> listOfTime = new ArrayList<>();
-    private List<Double> listOfDifferenceBetweenTime = new ArrayList<>();
+    private List<Long> listOfDifferenceBetweenTime = new ArrayList<>();
 
     public static Map<String, Pattern> mapOfPatterns = ChartFillService.mapOfPatterns;
 
     public BoxCreateService() {
-        listOfDifferenceBetweenTime.add(0d);
+        listOfDifferenceBetweenTime.add((long) 0);
     }
 
     public BoxOfVariablesList fillBox(String variableToPattern, String pathRead) throws IOException, ParseException {
@@ -59,7 +60,7 @@ public class BoxCreateService {
     private void doDifferentBetweenTime(List<Date> dates, BoxCreateService boxCreateService) {
 
         for (int i = 1; i < dates.size(); i++) {
-            Double difference = (double) (dates.get(i).getTime() - dates.get(0).getTime())/60000;
+            Long difference =  (dates.get(i).getTime() - dates.get(0).getTime())/60000;
             boxCreateService.getListOfDifferenceBetweenTime().add(difference);
         }
     }
@@ -84,7 +85,7 @@ public class BoxCreateService {
         return listOfTime;
     }
 
-    private List<Double> getListOfDifferenceBetweenTime() {
+    private List<Long> getListOfDifferenceBetweenTime() {
         return listOfDifferenceBetweenTime;
     }
 }

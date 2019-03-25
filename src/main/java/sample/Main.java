@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import sample.service.ChartFillService;
+import sample.service.chart.ChartFillService;
 
 
 public class Main extends Application {

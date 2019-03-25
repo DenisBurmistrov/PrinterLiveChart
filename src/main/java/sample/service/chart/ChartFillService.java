@@ -1,7 +1,6 @@
-package sample.service;
+package sample.service.chart;
 
 import javafx.scene.chart.XYChart;
-import sample.chart.ChartService;
 import sample.LogChooser;
 
 import java.io.BufferedReader;
@@ -24,7 +23,7 @@ public class ChartFillService {
     public void readString(String variableToPattern, XYChart.Series<Number, Number> lineOnChart) {
         try {
             lineOnChart.getData().clear();
-            ChartService chartService = new ChartService();
+            ChartPointService chartPointService = new ChartPointService();
             BufferedReader br = new BufferedReader(new InputStreamReader(new
                     FileInputStream(LogChooser.classPath),/*"Cp1251"*/StandardCharsets.UTF_8));
             String strRead = null;
@@ -40,7 +39,7 @@ public class ChartFillService {
                         firstDate = simpleDateFormat.parse
                                 (strRead.replaceFirst("(\\d+)-(\\d+)-(\\d+) (\\d+):(\\d+):(\\d+).+", "$1-$2-$3 $4:$5:$6"));
                         Double firstVariableOfY = Double.parseDouble(strRead.replaceFirst(".*?" + variableToPattern + "=(.+)", "$1"));
-                        chartService.addInfo(lineOnChart, 0D, firstVariableOfY);
+                        chartPointService.addInfo(lineOnChart, (long) 0, firstVariableOfY);
                         i++;
                         continue;
                     }
@@ -50,8 +49,8 @@ public class ChartFillService {
                     Double yVariable = Double.parseDouble(strRead.replaceFirst(".*?" + variableToPattern + "=(.+)", "$1"));
                     Date time = simpleDateFormat.parse
                             (strRead.replaceFirst("(\\d+)-(\\d+)-(\\d+) (\\d+):(\\d+):(\\d+).+", "$1-$2-$3 $4:$5:$6"));
-                    Double xVariable = (double)(time.getTime() - firstDate.getTime())/60000;
-                    chartService.addInfo(lineOnChart, xVariable, yVariable);
+                    Long xVariable = (time.getTime() - firstDate.getTime())/60000;
+                    chartPointService.addInfo(lineOnChart, xVariable, yVariable);
                 }
             }
             br.close();

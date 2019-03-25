@@ -2,7 +2,7 @@ package sample;
 
 import javafx.scene.chart.XYChart;
 import javafx.stage.FileChooser;
-import sample.service.ChartFillService;
+import sample.service.chart.ChartFillService;
 
 import java.io.File;
 

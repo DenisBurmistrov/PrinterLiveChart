@@ -1,7 +1,7 @@
 package sample.entity;
 
 import javafx.scene.chart.XYChart;
-import sample.service.ChartFillService;
+import sample.service.chart.ChartFillService;
 
 import java.io.File;
 

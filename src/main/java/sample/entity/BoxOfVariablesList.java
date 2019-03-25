@@ -5,15 +5,15 @@ import java.util.List;
 
 public class BoxOfVariablesList {
 
-    private List<Double> time = new ArrayList<>();
+    private List<Long> time = new ArrayList<>();
 
     private List<Double> variable = new ArrayList<>();
 
-    public List<Double> getTime() {
+    public List<Long> getTime() {
         return time;
     }
 
-    public void setTime(List<Double> time) {
+    public void setTime(List<Long> time) {
         this.time = time;
     }
 
