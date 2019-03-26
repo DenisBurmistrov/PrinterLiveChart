@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -44,7 +45,6 @@ public class Main extends Application {
                         )
                 )
         );
-
         StackPane layout = new StackPane(closeButton);
         layout.setPadding(new Insets(10));
 
@@ -64,17 +64,18 @@ public class Main extends Application {
         closeConfirmation.initModality(Modality.APPLICATION_MODAL);
         closeConfirmation.initOwner(stage);
 
-        // normally, you would just use the default alert positioning,
-        // but for this simple sample the main stage is small,
-        // so explicitly position the alert so that the main window can still be seen.
         closeConfirmation.setX(stage.getX());
         closeConfirmation.setY(stage.getY() + stage.getHeight());
-
         Optional<ButtonType> closeResponse = closeConfirmation.showAndWait();
         if (!ButtonType.OK.equals(closeResponse.get())) {
             event.consume();
+        } else {
+            stage.close();
+            Platform.exit();
+            System.exit(0);
         }
     };
+
 
     public static void main(String[] args) {
         ChartFillService.initPatterns();
